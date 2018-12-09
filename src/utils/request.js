@@ -84,6 +84,7 @@ export default function request(url, option) {
     credentials: 'include',
   };
   const newOptions = { ...defaultOptions, ...options };
+  newOptions.headers = {...{ 'Authorization': `token ${cookie.get('token') || ''}`}}
   if (
     newOptions.method === 'POST' ||
     newOptions.method === 'PUT' ||
@@ -94,7 +95,6 @@ export default function request(url, option) {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
-        'Authorization': `token ${cookie.get('token') || ''}`
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
@@ -102,7 +102,6 @@ export default function request(url, option) {
       newOptions.headers = {
         Accept: 'application/json',
         ...newOptions.headers,
-        'Authorization': `token ${cookie.get('token') || ''}`
       };
     }
   }

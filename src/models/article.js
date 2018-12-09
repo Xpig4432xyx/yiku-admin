@@ -32,14 +32,14 @@ export default {
 			const response = yield call(queryArticle, params);
 			!!resolve && resolve(response); // 返回数据
 			// console.log('response :', response)
-			if (response.code === 0) {
+			if (response.code === 200) {
 				yield put({
 					type: 'saveArticleList',
-					payload: response.data.list,
+					payload: response.data,
 				});
 				yield put({
 					type: 'saveArticleListTotal',
-					payload: response.data.count,
+					payload: response.data.length,
 				});
 			}
 		},

@@ -131,3 +131,7 @@ export async function addArticle(params) {
     body: params,
   });
 }
+
+export async function queryArticle(params) {
+  return request(`/api/allArticles?${stringify(params)}`);
+}

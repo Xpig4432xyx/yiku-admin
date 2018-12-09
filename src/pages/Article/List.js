@@ -64,15 +64,15 @@ class TableList extends PureComponent {
           title: '关键字',
           width: '200',
           dataIndex: 'keyword',
-          render: arr => (
-            <span>
-              {arr.map(item => (
-                <span color="magenta" key={item}>
-                  {item}
-                </span>
-              ))}
-            </span>
-          ),
+          // render: arr => (
+          //   <span>
+          //     {arr && arr.length>0 && arr.map(item => (
+          //       <span color="magenta" key={item}>
+          //         {item}
+          //       </span>
+          //     ))}
+          //   </span>
+          // ),
         },
         {
           title: '封面图',
@@ -82,28 +82,28 @@ class TableList extends PureComponent {
         {
           title: '标签',
           dataIndex: 'tags',
-          render: arr => (
-            <span>
-              {arr.map(item => (
-                <Tag color="cyan" key={item.id}>
-                  {item.name}
-                </Tag>
-              ))}
-            </span>
-          ),
+          // render: arr => (
+          //   <span>
+          //     {arr && arr.length>0 && arr.map(item => (
+          //       <Tag color="cyan" key={item.id}>
+          //         {item.name}
+          //       </Tag>
+          //     ))}
+          //   </span>
+          // ),
         },
         {
           title: '分类',
           dataIndex: 'category',
-          render: arr => (
-            <span>
-              {arr.map(item => (
-                <Tag color="blue" key={item.id}>
-                  {item.name}
-                </Tag>
-              ))}
-            </span>
-          ),
+          // render: arr => (
+          //   <span>
+          //     {arr && arr.length>0 && arr.map(item => (
+          //       <Tag color="blue" key={item.id}>
+          //         {item.name}
+          //       </Tag>
+          //     ))}
+          //   </span>
+          // ),
         },
         {
           title: '状态',
@@ -118,16 +118,16 @@ class TableList extends PureComponent {
             }
           },
         },
-        {
-          title: '观看/点赞/评论',
-          dataIndex: 'meta',
-          render: val => (
-            <div>
-              {' '}
-              <span>{val.views}</span> <span>{val.likes}</span> <span>{val.comments}</span>{' '}
-            </div>
-          ),
-        },
+        // {
+        //   title: '观看/点赞/评论',
+        //   dataIndex: 'meta',
+        //   render: val => (
+        //     <div>
+        //       {' '}
+        //       <span>{val.views}</span> <span>{val.likes}</span> <span>{val.comments}</span>{' '}
+        //     </div>
+        //   ),
+        // },
         {
           title: '原创状态',
           dataIndex: 'origin',
@@ -219,7 +219,7 @@ class TableList extends PureComponent {
 		this.setState({
 			loading: true,
     });
-    
+
     let keyword = this.state.keyword;
     if (keyword instanceof Array) {
       keyword = keyword.join(',');
@@ -526,7 +526,7 @@ class TableList extends PureComponent {
       });
     }).then(res => {
       // console.log('res :', res);
-      if (res.code === 0) {
+      if (res.code === 200) {
         this.setState({
           loading: false,
         });
@@ -535,7 +535,12 @@ class TableList extends PureComponent {
           message: res.message,
         });
       }
-    });
+    })
+      .catch(err => {
+        notification.error({
+          message: err.message
+        });
+      });
   };
 
   handleDelete = (text, record) => {
@@ -652,7 +657,7 @@ class TableList extends PureComponent {
             />
           </div>
         </Card>
-              
+
         <ArticleComponent
           changeType={this.state.changeType}
           title={this.state.title}

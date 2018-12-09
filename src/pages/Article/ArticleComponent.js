@@ -90,45 +90,18 @@ class ArticleComponent extends React.Component {
   };
 
   render() {
-    const { tagList } = this.props.tag;
-    const { categoryList } = this.props.category;
-    const children = [];
-    const categoryChildren = [];
-    for (let i = 0; i < tagList.length; i++) {
-      const e = tagList[i];
-      children.push(
-        <Select.Option key={e._id} value={e._id}>
-          {e.name}
-        </Select.Option>
-      );
-    }
-    for (let i = 0; i < categoryList.length; i++) {
-      const e = categoryList[i];
-      categoryChildren.push(
-        <Select.Option key={e._id} value={e._id}>
-          {e.name}
-        </Select.Option>
-      );
-    }
     const { articleDetail } = this.props.article;
     const { changeType } = this.props;
     let originDefault = '原创';
     let stateDefault = '发布'; // 文章发布状态 => 0 草稿，1 发布
     let typeDefault = '普通文章'; // 文章类型 => 1: 普通文章，2: 简历，3: 管理员介绍
-    let categoryDefault = [];
-    let tagsDefault = [];
     if (changeType) {
       originDefault = articleDetail.origin === 0 ? '原创' : '';
       stateDefault = articleDetail.state ? '已发布' : '草稿';
-      typeDefault =
-        articleDetail.type === 1 ? '普通文章' : articleDetail.type === 2 ? '简历' : '管理员介绍';
-      categoryDefault = this.props.categoryDefault;
-      tagsDefault = this.props.tagsDefault;
+      typeDefault = articleDetail.type === 1 ? '普通文章' : articleDetail.type === 2 ? '简历' : '管理员介绍';
     } else {
       originDefault = '原创';
       stateDefault = '发布'; // 文章发布状态 => 0 草稿，1 发布
-      categoryDefault = [];
-      tagsDefault = [];
     }
     // console.log('originDefault :', originDefault)
     // console.log('stateDefault :', stateDefault)
@@ -227,29 +200,6 @@ class ArticleComponent extends React.Component {
             <Select.Option value="0">原创</Select.Option>
             <Select.Option value="1">转载</Select.Option>
             <Select.Option value="2">混合</Select.Option>
-          </Select>
-
-          <Select
-            allowClear
-            mode="multiple"
-            style={{ width: 200, marginTop: 20, marginLeft: 10, marginBottom: 20 }}
-            placeholder="标签"
-            defaultValue={tagsDefault}
-            value={this.props.tagsDefault}
-            onChange={this.props.handleTagChange}
-          >
-            {children}
-          </Select>
-          <Select
-            allowClear
-            mode="multiple"
-            style={{ width: 200, marginTop: 20, marginLeft: 10, marginBottom: 20 }}
-            placeholder="文章分类"
-            defaultValue={categoryDefault}
-            value={this.props.categoryDefault}
-            onChange={this.props.handleCategoryChange}
-          >
-            {categoryChildren}
           </Select>
           <TextArea
             style={{ marginBottom: 20 }}
