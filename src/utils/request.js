@@ -3,6 +3,8 @@ import { notification } from 'antd';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
+import cookie from 'js-cookie';
+
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -92,6 +94,7 @@ export default function request(url, option) {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
+        'Authorization': `token ${cookie.get('token') || ''}`
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
@@ -99,6 +102,7 @@ export default function request(url, option) {
       newOptions.headers = {
         Accept: 'application/json',
         ...newOptions.headers,
+        'Authorization': `token ${cookie.get('token') || ''}`
       };
     }
   }

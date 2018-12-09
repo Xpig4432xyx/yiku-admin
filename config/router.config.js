@@ -41,6 +41,23 @@ export default [
           },
         ],
       },
+      {
+        path: '/article',
+        name: 'article',
+        icon: 'file-markdown',
+        routes: [
+          {
+            path: '/article/list',
+            name: 'list',
+            component: './Article/List',
+          },
+          {
+            path: '/article/create',
+            name: 'create',
+            component: './Article/ArticleCreate',
+          },
+        ],
+      },
       // forms
       {
         path: '/form',
